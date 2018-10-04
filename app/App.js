@@ -5,6 +5,7 @@ import BookMarks from './components/BookMarks';
 import Search from './components/Search';
 import PlaceScreen from './components/PlaceScreen';
 
+
 const RootStack = createStackNavigator(
   {
   HomeScreen: BookMarks,

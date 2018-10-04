@@ -1,27 +1,58 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+
+import { MainStyle } from '../styles';
+
+// var checkmark = require('../../design/assets/Icon Checkmark@2x.png');
 
 class PlaceScreen extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
+    state = {
+        bookmarkValue: false,
+        bookmarks: []
     }
-    render() { 
+
+
+    bookmark = ({title, address}) => {
+        let newArr = [...this.state.bookmarks];
+        newArr.push({title, address});
+        this.setState({
+            bookmarks: newArr,
+            bookmarkValue: true
+        })
+    }
+
+    render() {
+        let { title, address } = this.props.navigation.getParam('imageTitleAddress', { title: "Default" })
+    
         return (
-            <View style={styles.container}>
-                <Text>Place Screen</Text>
+            <View style={MainStyle.container}>
+                <Text style={{ fontSize: 25, marginBottom: 10 }}>{title}</Text>
+                <Text style={{ fontSize: 15, textAlign: 'center' }}>{address}</Text>
+                {
+                    this.state.bookmarkValue === false ?
+                        <TouchableOpacity
+                            style={MainStyle.bookmark}
+                            onPress={this.bookmark.bind(this, {title, address})}
+                        >
+
+                            <Text style={{ color: 'white', fontSize: 20 }}>BookMark</Text>
+                        </TouchableOpacity>
+
+                        :
+
+                        <TouchableOpacity
+                            style={MainStyle.bookmarked}
+                        >
+                            {/* <Image source={checkmark} /> */}
+                            <Text style={{ color: 'white', fontSize: 20 }}>
+                                Bookmarked
+                        </Text>
+                        </TouchableOpacity>
+                }
+
             </View>
-          );
+        );
     }
 }
- 
-export default PlaceScreen;
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }
-})
+export default PlaceScreen;

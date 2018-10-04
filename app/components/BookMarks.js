@@ -1,8 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native';
+
+import { MainStyle } from '../styles';
+
+// import checkmark from '../../design/assets/Icon Checkmark@2x.png'
 
 class BookMarks extends React.Component {
-
+    constructor(props) {
+        super(props);
+    }
     static navigationOptions = {
         title: 'Bookmarks',
       };
@@ -10,9 +16,21 @@ class BookMarks extends React.Component {
     render() {
         const { navigate } = this.props.navigation
         return (
-            <View style={styles.container}>
+            <View style={MainStyle.container}>
+            {/* <Image source={checkmark} /> */}
+                <FlatList
+                    data={this.props.bookmarks}
+                    renderItem={({ item }) =>
+                    <View>
+                        <Text>{item.title}</Text>
+                        <Text>{item.address}</Text>
+
+                    </View>
+                }
+                keyExtractor={(item) => item.title}
+                />
                 <TouchableOpacity
-                style={styles.addButton}
+                style={MainStyle.addButton}
                 onPress={() => navigate('SearchScreen')}>
                     <Text style={{ color: 'white', fontSize: 20 }}>Add New Place</Text>
                 </TouchableOpacity>
@@ -23,21 +41,3 @@ class BookMarks extends React.Component {
 
 export default BookMarks;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    addButton: {
-        backgroundColor: 'blue',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: 350,
-        height: 55,
-        borderRadius: 20,
-        position: 'absolute',
-        bottom: 20
-    }
-});
