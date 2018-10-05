@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { createStackNavigator} from 'react-navigation';
 import BookMarks from './components/BookMarks';
 import Search from './components/Search';
@@ -19,6 +18,6 @@ const RootStack = createStackNavigator(
 export default class App extends React.Component {
   render() {
     return <RootStack />;
-  }
 }
+  }
 

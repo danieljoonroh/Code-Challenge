@@ -1,29 +1,31 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { Text, View, TouchableOpacity, Image } from 'react-native';
+import axios from 'axios';
 
 import { MainStyle } from '../styles';
 
-// var checkmark = require('../../design/assets/Icon Checkmark@2x.png');
-
 class PlaceScreen extends React.Component {
+
     state = {
         bookmarkValue: false,
         bookmarks: []
     }
 
+    bookmark = async (title, address) => {
+        await axios.post('http://localhost:5000/', { title, address })
 
-    bookmark = ({title, address}) => {
-        let newArr = [...this.state.bookmarks];
-        newArr.push({title, address});
         this.setState({
-            bookmarks: newArr,
             bookmarkValue: true
-        })
+        }, () => setTimeout(() => {
+            let refresh = this.props.navigation.getParam('refresh', () => console.log('error'))
+            refresh();
+            this.props.navigation.popToTop()
+        }, 1000))
     }
 
     render() {
         let { title, address } = this.props.navigation.getParam('imageTitleAddress', { title: "Default" })
-    
+        console.log("LINE 34:", title, address)
         return (
             <View style={MainStyle.container}>
                 <Text style={{ fontSize: 25, marginBottom: 10 }}>{title}</Text>
@@ -32,7 +34,7 @@ class PlaceScreen extends React.Component {
                     this.state.bookmarkValue === false ?
                         <TouchableOpacity
                             style={MainStyle.bookmark}
-                            onPress={this.bookmark.bind(this, {title, address})}
+                            onPress={() => this.bookmark(title, address)}
                         >
 
                             <Text style={{ color: 'white', fontSize: 20 }}>BookMark</Text>
@@ -43,7 +45,7 @@ class PlaceScreen extends React.Component {
                         <TouchableOpacity
                             style={MainStyle.bookmarked}
                         >
-                            {/* <Image source={checkmark} /> */}
+                            <Image source={require("../design/assets/Icon-Checkmark.png")} style={MainStyle.checkmark}/>
                             <Text style={{ color: 'white', fontSize: 20 }}>
                                 Bookmarked
                         </Text>

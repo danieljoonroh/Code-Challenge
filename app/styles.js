@@ -36,5 +36,10 @@ export const MainStyle = StyleSheet.create({
         borderRadius: 20,
         position: 'absolute',
         bottom: 200
+    },
+    checkmark: {
+        position: 'absolute',
+        bottom: 23,
+        left: 100
     }
 })

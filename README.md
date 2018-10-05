@@ -9,9 +9,9 @@ TAPP Code Challenge for Software Engineer Candidates
 
 ## Candidate Information (Fill out with your info)
 
-Name: \<your name>
+Name: Daniel Roh
 
-Email: \<your email>
+Email: danieljoonroh@gmail.com
 
 Resume: \<link to your resume>
 
